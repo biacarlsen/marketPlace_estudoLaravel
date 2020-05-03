@@ -21,7 +21,10 @@ class UsersTableSeeder extends Seeder
         //     ]
         // );
 
-        // criando dados fakes:
-        factory(\App\User::class, 40)->create();
+        // criando dados fakes com relacionamento store:
+        // pra cada usuario uma loja
+        factory(\App\User::class, 40)->create()->each(function($user){
+            $user->store()->save(factory(\App\Store::class)->make());
+        });
     }
 }
