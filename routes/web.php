@@ -136,4 +136,11 @@ Route::get('/model', function () {
     // $product = \App\Product::find(12);
     //     return $product->categories;
     return \App\User::all();
+
+
 });
+
+// Método get na rota tal, chamando o controller na pasta tal com a função tal:
+Route::get('/admin/stores', 'Admin\\StoreController@index');
+Route::get('/admin/stores/create', 'Admin\\StoreController@create');
+Route::post('/admin/stores/store', 'Admin\\StoreController@store');
