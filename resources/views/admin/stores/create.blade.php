@@ -1,38 +1,44 @@
-<h1>Criar Loja</h1>
+@extends('layouts.app')
+
+@section('content')
+<h1 class="mt-4 text-center">Aqui você poderá criar uma loja <br> Vamos começar? </h1>
 
 <form action="/admin/stores/store" method="post">
     <input type="hidden" name="_token" value="{{csrf_token()}}">
-    <div>
+    <div class="form-group">
         <label>Nome da Loja</label>
-        <input type="text" name="name">
+        <input type="text" name="name" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
         <label>Descrição</label>
-        <input type="text" name="description">
+        <input type="text" name="description" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
         <label>Telefone</label>
-        <input type="text" name="phone">
+        <input type="text" name="phone" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
         <label>Celular</label>
-        <input type="text" name="mobile_phone">
+        <input type="text" name="mobile_phone" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
         <label>Slug</label>
-        <input type="text" name="slug">
+        <input type="text" name="slug" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
         <label>Usuário</label>
-        <select name="user">
+        <select name="user" class="form-control">
             @foreach ($users as $user)
                 <option value="{{$user->id}}">{{$user->name}}</option>
             @endforeach
         </select>
     </div>
     <div>
-        <button type="submit">
+        <button type="submit" class="btn btn-primary btn-lg">
             Criar Loja
         </button>
     </div>
 </form>
+@endsection
+
+

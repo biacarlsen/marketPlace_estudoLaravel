@@ -140,7 +140,17 @@ Route::get('/model', function () {
 
 });
 
+// Ex sem abreviações:
 // Método get na rota tal, chamando o controller na pasta tal com a função tal:
-Route::get('/admin/stores', 'Admin\\StoreController@index');
-Route::get('/admin/stores/create', 'Admin\\StoreController@create');
-Route::post('/admin/stores/store', 'Admin\\StoreController@store');
+// Route::get('/admin/stores', 'Admin\\StoreController@index');
+
+Route::prefix('admin')->namespace('Admin')->group(function(){
+    Route::prefix(('stores'))->group(function(){
+        // rota para mostrar todas as lojas:
+        Route::get('/', 'StoreController@index');
+        // rota para mostrar form de criar loja:
+        Route::get('/create', 'StoreController@create');
+        // rota para enviar form de criar loja:
+        Route::post('/store', 'StoreController@store');
+    });
+});
