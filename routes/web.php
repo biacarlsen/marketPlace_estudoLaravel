@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome', compact('helloWorld'));
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -136,21 +136,29 @@ Route::get('/model', function () {
     // $product = \App\Product::find(12);
     //     return $product->categories;
     return \App\User::all();
-
-
 });
 
 // Ex sem abreviações:
 // Método get na rota tal, chamando o controller na pasta tal com a função tal:
 // Route::get('/admin/stores', 'Admin\\StoreController@index');
 
-Route::prefix('admin')->namespace('Admin')->group(function(){
-    Route::prefix(('stores'))->group(function(){
+Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+
+    Route::prefix('stores')->name('stores.')->group(function() {
+
         // rota para mostrar todas as lojas:
-        Route::get('/', 'StoreController@index');
+        Route::get('/', 'StoreController@index')->name('index');
         // rota para mostrar form de criar loja:
-        Route::get('/create', 'StoreController@create');
+        Route::get('/create', 'StoreController@create')->name('create');
         // rota para enviar form de criar loja:
-        Route::post('/store', 'StoreController@store');
+        Route::post('/store', 'StoreController@store')->name('store');
+        // rota para mostrar editar loja - passando id dinâmico da loja:
+        Route::get('/{store}/edit', 'StoreController@edit')->name('edit');
+        // rota para atualizar a edição da loja - passando id dinâmico da loja:
+        Route::post('/update/{store}', 'StoreController@update')->name('update');
+        // rota para deletar loja
+        Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
+
     });
+
 });

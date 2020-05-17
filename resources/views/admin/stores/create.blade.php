@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="mt-4 text-center">Aqui você poderá criar uma loja <br> Vamos começar? </h1>
-
-<form action="/admin/stores/store" method="post">
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="my-4 text-center text-secondary">Cadastre uma nova loja <br> Vamos começar? </h1>
+    </div>
+</div>
+<form action="{{route('admin.stores.store')}}" method="post">
     <input type="hidden" name="_token" value="{{csrf_token()}}">
     <div class="form-group">
         <label>Nome da Loja</label>
@@ -34,7 +37,7 @@
         </select>
     </div>
     <div>
-        <button type="submit" class="btn btn-primary btn-lg">
+        <button type="submit"  class="btn btn-primary my-3 px-3">
             Criar Loja
         </button>
     </div>
