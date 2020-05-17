@@ -23,6 +23,9 @@
 </head>
 <body>
     <div class="container">
+        {{-- incluir conteúdo externo --}}
+        @include('flash::message') 
+        {{-- incluir conteúdo interno --}}
         @yield('content')
     </div>
 

@@ -34,7 +34,9 @@ class StoreController extends Controller
         $store = $user->store()->create($data);
 
         // Obs: create retorna um objeto vindo do banco
-        return $store;
+
+        flash('Loja criada com sucesso')->success();
+        return redirect()->route('admin.stores.index');
     }
 
     // mostrando a view de editar usuário
@@ -56,7 +58,9 @@ class StoreController extends Controller
         $store->update($data); //--> atualizando a loja com os dados vindos da variavel data
 
         // Obs: update retorna um boleano
-        return $store;
+
+        flash('Loja atualizada com sucesso')->success();
+        return redirect()->route('admin.stores.index');
     }
 
     // deletar loja e redirecionar rota: 
@@ -65,6 +69,7 @@ class StoreController extends Controller
         $store = \App\Store::find($store);
         $store->delete();
 
-        return redirect('admin/stores');
+        flash('Loja deletada com sucesso')->success();
+        return redirect()->route('admin.stores.index');
     }
 }
