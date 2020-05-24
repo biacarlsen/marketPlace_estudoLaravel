@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+
+use function GuzzleHttp\Promise\all;
+
 class ProductController extends Controller
 {
     // essa função foi criada pra nao precisarmos ficar chamando o model em todas as funções (por isso o model tbm foi importado acima)
@@ -47,7 +50,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $store = \App\Store::find($data['store']);
+        $store->products()->create($data);
+
+        flash('Produto criado com sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -82,7 +91,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $product)
     {
-        //
+        $data = $request->all();
+
+        $product = $this->product->find($product);
+        $product->update($data);
+
+        flash('Produto atualizado com sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 
     /**

@@ -6,8 +6,12 @@
         <h2 class="my-4 text-center text-secondary">Atualize o produto "{{$product->name}}"<br> Vamos começar? </h2>
     </div>
 </div>
-<form action="{{route('admin.products.store')}}" method="post">
-    <input type="hidden" name="_token" value="{{csrf_token()}}">
+<form action="{{route('admin.products.update', ['product' => $product->id])}}" method="post">
+    {{-- passando token: --}}
+    @csrf 
+    {{-- passando method put pra edição: --}}
+    @method("PUT")
+
     <div class="form-group">
         <label>Nome do Produto</label>
         <input type="text" name="name" class="form-control" value="{{$product->name}}">

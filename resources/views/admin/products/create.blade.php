@@ -7,7 +7,9 @@
     </div>
 </div>
 <form action="{{route('admin.products.store')}}" method="post">
-    <input type="hidden" name="_token" value="{{csrf_token()}}">
+    {{-- passando token: --}}
+    @csrf 
+    
     <div class="form-group">
         <label>Nome do Produto</label>
         <input type="text" name="name" class="form-control">
@@ -30,7 +32,7 @@
     </div>
     <div class="form-group">
         <label>Loja</label>
-        <select name="user" class="form-control">
+        <select name="store" class="form-control">
             @foreach ($stores as $store)
                 <option value="{{$store->id}}">{{$store->name}}</option>
             @endforeach
