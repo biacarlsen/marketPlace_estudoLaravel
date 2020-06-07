@@ -17,11 +17,7 @@ Route::get('/', function () {
     // definindo uma variável e mostrando na view:
     $helloWorld = "Hello World!";
     return view('welcome', compact('helloWorld'));
-});
-
-// Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+})->name('home');
 
 Route::get('/model', function () {
     //EX 1:
@@ -142,25 +138,30 @@ Route::get('/model', function () {
 // Método get na rota tal, chamando o controller na pasta tal com a função tal:
 // Route::get('/admin/stores', 'Admin\\StoreController@index');
 
-Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+Route::group(['middleware' => ['auth']], function(){
+    Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 
-    // Route::prefix('stores')->name('stores.')->group(function() {
-    //     // rota para mostrar todas as lojas:
-    //     Route::get('/', 'StoreController@index')->name('index');
-    //     // rota para mostrar form de criar loja:
-    //     Route::get('/create', 'StoreController@create')->name('create');
-    //     // rota para enviar form de criar loja:
-    //     Route::post('/store', 'StoreController@store')->name('store');
-    //     // rota para mostrar editar loja - passando id dinâmico da loja:
-    //     Route::get('/{store}/edit', 'StoreController@edit')->name('edit');
-    //     // rota para atualizar a edição da loja - passando id dinâmico da loja:
-    //     Route::post('/update/{store}', 'StoreController@update')->name('update');
-    //     // rota para deletar loja
-    //     Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
-    // });
-
-    // Criando rotas com resource - cria todos os metodos automaticamente
-    Route::resource('stores', 'StoreController');
-    Route::resource('products', 'ProductController');
-
+        // Route::prefix('stores')->name('stores.')->group(function() {
+        //     // rota para mostrar todas as lojas:
+        //     Route::get('/', 'StoreController@index')->name('index');
+        //     // rota para mostrar form de criar loja:
+        //     Route::get('/create', 'StoreController@create')->name('create');
+        //     // rota para enviar form de criar loja:
+        //     Route::post('/store', 'StoreController@store')->name('store');
+        //     // rota para mostrar editar loja - passando id dinâmico da loja:
+        //     Route::get('/{store}/edit', 'StoreController@edit')->name('edit');
+        //     // rota para atualizar a edição da loja - passando id dinâmico da loja:
+        //     Route::post('/update/{store}', 'StoreController@update')->name('update');
+        //     // rota para deletar loja
+        //     Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
+        // });
+    
+        // Criando rotas com resource - cria todos os metodos automaticamente
+        Route::resource('stores', 'StoreController');
+        Route::resource('products', 'ProductController');
+    
+    });
 });
+
+Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');

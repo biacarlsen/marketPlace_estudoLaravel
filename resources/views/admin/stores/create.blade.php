@@ -28,14 +28,15 @@
         <label>Slug</label>
         <input type="text" name="slug" class="form-control">
     </div>
-    <div class="form-group">
+    {{-- Não está sendo mais usado o select user pois o cadastro é vinculado ao user logado --}}
+    {{-- <div class="form-group">
         <label>Usuário</label>
         <select name="user" class="form-control">
             @foreach ($users as $user)
                 <option value="{{$user->id}}">{{$user->name}}</option>
             @endforeach
         </select>
-    </div>
+    </div> --}}
     <div>
         <button type="submit"  class="btn btn-primary my-3 px-3">
             Criar Loja
