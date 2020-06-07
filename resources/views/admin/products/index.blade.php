@@ -25,9 +25,16 @@
             <tr>
                 <td>{{$product->id}}</td>
                 <td>{{$product->name}}</td>
+                <td>R$ {{number_format($product->price, 2, ',', '.')}}</td>
                 <td>
-                <a href="{{route('admin.products.edit', ['product' => $product->id])}}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
-                <a href="{{route('admin.products.destroy', ['product' => $product->id])}}" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></a>
+                <div class="btn-group">
+                    <a href="{{route('admin.products.edit', ['product' => $product->id])}}" class="btn btn-sm btn-primary mr-3"><i class="far fa-edit"></i></a>
+                    <form action="{{route('admin.products.destroy', ['product' => $product->id])}}" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
+                    </form>
+                </div>
                 </td>
             </tr>
         @endforeach
