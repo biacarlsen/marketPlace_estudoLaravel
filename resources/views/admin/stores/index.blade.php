@@ -3,24 +3,25 @@
 @section('content')
 <div class="row">
     <div class="col-md-12 text-center ">
-        <h1 class="mt-4 text-secondary">Lojas Cadastradas</h1>
+        <h1 class="mt-4 text-secondary">Loja Cadastrada</h1>
     </div>
     <div class="col-md-12 text-right">
+        @if(!$store)
         <a href="{{route('admin.stores.create')}}" class="btn btn-md btn-success mb-3 px-3">Cadastrar Loja</a>
+        @endif
     </div>
 </div>
 
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Loja</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($stores as $store)
+@if($store)
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Loja</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td>{{$store->id}}</td>
                 <td>{{$store->name}}</td>
@@ -35,15 +36,21 @@
                     </div>
                 </td>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </tbody>
+    </table>
+@endif
 
-<div class="row mt-4">
+@if(!$store)
+<h4 class="mt-4 text-secondary">Ops, você ainda não cadastrou sua loja.</h4>
+@endif
+
+
+{{-- paginação caso eu quisesse mostrar todas as lojas --}}
+{{-- <div class="row mt-4">
     <div class="col-md-12">
         {{$stores->links()}}
     </div>
-</div>
+</div> --}}
 
 
 @endsection

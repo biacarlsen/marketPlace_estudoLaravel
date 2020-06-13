@@ -12,19 +12,47 @@
     
     <div class="form-group">
         <label>Nome da Loja</label>
-        <input type="text" name="name" class="form-control" value="{{$store->name}}">
+        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$store->name}}">
+    
+        {{-- validando campo: --}}
+        @error('name')
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Descrição</label>
-        <input type="text" name="description" class="form-control" value="{{$store->description}}">
+        <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" value="{{$store->description}}">
+    
+        {{-- validando campo: --}}
+        @error('description')
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Telefone</label>
-        <input type="text" name="phone" class="form-control" value="{{$store->phone}}">
+        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{$store->phone}}">
+    
+        {{-- validando campo: --}}
+        @error('phone')
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Celular</label>
-        <input type="text" name="mobile_phone" class="form-control" value="{{$store->mobile_phone}}">
+        <input type="text" name="mobile_phone" class="form-control @error('mobile_phone') is-invalid @enderror" value="{{$store->mobile_phone}}">
+    
+        {{-- validando campo: --}}
+        @error('mobile_phone')
+        <div class="invalid-feedback">
+            {{$message}}
+        </div>
+        @enderror
     </div>
     <div class="form-group">
         <label>Slug</label>

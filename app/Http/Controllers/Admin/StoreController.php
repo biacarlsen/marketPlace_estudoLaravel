@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
@@ -11,21 +12,29 @@ class StoreController extends Controller
     public function index()
     {
         // pegando todas as lojas e paginando
-        $stores = \App\Store::paginate(10);
+        //  $stores = \App\Store::paginate(10);
 
-        return view('admin.stores.index', compact('stores'));
+        // pegando apenas a loja do usuario pra mostrar apenas a dele (relação de 1:1)
+        $store = auth()->user()->store;
+        return view('admin.stores.index', compact('store'));
     }
 
     // mostrar view criar loja:
     public function create()
     {
+        // verificando se o usuario ja tem loja para redirecionar - se o count retornar 1 é true.
+        if (auth()->user()->store()->count()) {
+            flash('Você já possui uma loja cadastrada.')->warning();
+            return redirect()->route('admin.stores.index');
+        }
+
         $users = \App\User::all(['id', 'name']);
 
         return view('admin.stores.create', compact('users'));
     }
 
     // envio de dados usa request como parametro. Nesse caso para criar uma loja 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
         // pegando usuario logado:
@@ -50,7 +59,7 @@ class StoreController extends Controller
     }
 
     // como aqui envia dados, é necessário o uso do request. Tbm passando a loja a ser atualizada:
-    public function update(Request $request, $store)
+    public function update(StoreRequest $request, $store)
     {
         // dd($request->all()); -->debug or test
         $data = $request->all(); //-->salvando o retorno na variavel data
