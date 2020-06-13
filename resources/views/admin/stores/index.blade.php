@@ -18,6 +18,7 @@
             <tr>
                 <th>#</th>
                 <th>Loja</th>
+                <th>Nº produtos</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@
             <tr>
                 <td>{{$store->id}}</td>
                 <td>{{$store->name}}</td>
+                <td>{{$store->products->count()}}</td>
                 <td>
                     <a href="{{route('admin.stores.edit', ['store' => $store->id])}}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
                     <div class="btn-group">

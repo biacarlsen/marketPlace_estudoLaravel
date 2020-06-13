@@ -8,6 +8,13 @@ use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
+
+    // usando middleware para verificar se o usuario tem loja:
+    public function __construct()
+    {
+        $this->middleware('user.has.store')->only(['create', 'store']);
+    }
+
     // mostrar view de lista de lojas:
     public function index()
     {
@@ -22,12 +29,6 @@ class StoreController extends Controller
     // mostrar view criar loja:
     public function create()
     {
-        // verificando se o usuario ja tem loja para redirecionar - se o count retornar 1 é true.
-        if (auth()->user()->store()->count()) {
-            flash('Você já possui uma loja cadastrada.')->warning();
-            return redirect()->route('admin.stores.index');
-        }
-
         $users = \App\User::all(['id', 'name']);
 
         return view('admin.stores.create', compact('users'));

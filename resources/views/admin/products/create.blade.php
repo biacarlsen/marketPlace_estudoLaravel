@@ -69,7 +69,7 @@
     </div> --}}
     <div>
         <button type="submit"  class="btn btn-primary my-3 px-3">
-            Criar Produto
+            Cadastrar Produto
         </button>
     </div>
 </form>
