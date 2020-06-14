@@ -26,7 +26,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->product->paginate(10);
+        // pegando loja do usuario logado:
+        $userStore = auth()->user()->store;
+        // pegando produtos dessa loja e paginando:
+        $products = $userStore->products()->paginate(10);
 
         return view('admin.products.index', compact('products'));
     }
@@ -38,9 +41,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $stores = \App\Store::all(['id', 'name']);
+        $categories = \App\Category::all(['id', 'name']);
 
-        return view('admin.products.create', compact('stores'));
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -50,11 +53,15 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request)
-    {
+    {   
+        // recebendo os dados da requisição:
         $data = $request->all();
-
+        // pegando a loja do usuario logado pra fazer o relacionamento:
         $store = auth()->user()->store;
-        $store->products()->create($data);
+        // guardando o objeto criado na variavel produto:
+        $product = $store->products()->create($data);
+        // a partir do produto criado, fazendo relações com as categorias dentro dele:
+        $product->categories()->sync($data['categories']);
 
         flash('Produto criado com sucesso!')->success();
         return redirect()->route('admin.products.index');
@@ -80,7 +87,9 @@ class ProductController extends Controller
     public function edit($product)
     {
         $product = $this->product->findOrFail($product);
-        return view('admin.products.edit', compact('product'));
+        $categories = \App\Category::all(['id', 'name']);
+
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -96,6 +105,8 @@ class ProductController extends Controller
 
         $product = $this->product->find($product);
         $product->update($data);
+        // a partir do produto criado, fazendo relações com as categorias dentro dele:
+        $product->categories()->sync($data['categories']);
 
         flash('Produto atualizado com sucesso!')->success();
         return redirect()->route('admin.products.index');

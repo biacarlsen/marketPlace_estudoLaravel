@@ -159,6 +159,7 @@ Route::group(['middleware' => ['auth']], function(){
         // Criando rotas com resource - cria todos os metodos automaticamente
         Route::resource('stores', 'StoreController');
         Route::resource('products', 'ProductController');
+        Route::resource('categories', 'CategoryController');
     
     });
 });

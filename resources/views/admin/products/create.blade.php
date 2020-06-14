@@ -55,18 +55,17 @@
         @enderror
     </div>
     <div class="form-group">
+        <label>Selecione a(s) categoria(s)</label>
+        <select name="categories[]" class="form-control" multiple>
+            @foreach ($categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
         <label>Slug</label>
         <input type="text" name="slug" class="form-control">
     </div>
-    {{-- nao precisamos mais do select aqui pq na hora de salvar ja vai direto pra loja do usuario logado --}}
-    {{-- <div class="form-group">
-        <label>Loja</label>
-        <select name="store" class="form-control">
-            @foreach ($stores as $store)
-                <option value="{{$store->id}}">{{$store->name}}</option>
-            @endforeach
-        </select>
-    </div> --}}
     <div>
         <button type="submit"  class="btn btn-primary my-3 px-3">
             Cadastrar Produto

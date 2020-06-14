@@ -32,10 +32,13 @@
         @auth
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item @if(request()->is('admin/stores*')) active @endif">
-                <a class="nav-link" href="{{route('admin.stores.index')}}">Lojas<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{route('admin.stores.index')}}"><i class="fas fa-store mr-2"></i>Loja<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item @if(request()->is('admin/products*')) active @endif">
-                <a class="nav-link" href="{{route('admin.products.index')}}">Produtos</a>
+                <a class="nav-link" href="{{route('admin.products.index')}}"><i class="fas fa-list mr-2"></i>Produtos</a>
+                </li>
+                <li class="nav-item @if(request()->is('admin/categories*')) active @endif">
+                    <a class="nav-link" href="{{route('admin.categories.index')}}"><i class="far fa-bookmark mr-2"></i>Categorias</a>
                 </li>
             </ul>
             <div class="my-2 my-lg-0">
