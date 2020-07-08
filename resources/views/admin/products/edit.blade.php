@@ -6,7 +6,7 @@
         <h2 class="my-4 text-center text-secondary">Atualize o produto "{{$product->name}}"<br> Vamos começar? </h2>
     </div>
 </div>
-<form action="{{route('admin.products.update', ['product' => $product->id])}}" method="post">
+<form action="{{route('admin.products.update', ['product' => $product->id])}}" method="post" enctype="multipart/form-data">
     {{-- passando token: --}}
     @csrf 
     {{-- passando method put pra edição: --}}
@@ -67,6 +67,10 @@
         </select>
     </div>
     <div class="form-group">
+        <label>Imagens do produto</label>
+        <input type="file" name="photos[]" class="form-control" multiple>
+    </div>
+    <div class="form-group">
         <label>Slug</label>
     <input type="text" name="slug" class="form-control" value="{{$product->slug}}">
     </div>
@@ -76,6 +80,16 @@
         </button>
     </div>
 </form>
+
+<hr>
+
+<div class="row mb-5">
+    @foreach ($product->photos as $photo)
+        <div class="col-md-2 col-xs-4 col-sm-4 text-center">
+            <img src="{{asset('storage/' . $photo->image)}}" alt="" class="img-fluid" style="max-width: 150px">
+        </div>
+    @endforeach
+</div>
 @endsection
 
 

@@ -6,7 +6,7 @@
         <h1 class="my-4 text-center text-secondary">Cadastre um novo produto <br> Vamos começar? </h1>
     </div>
 </div>
-<form action="{{route('admin.products.store')}}" method="post">
+<form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
     {{-- passando token: --}}
     @csrf 
     
@@ -61,6 +61,10 @@
                 <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
         </select>
+    </div>
+    <div class="form-group">
+        <label>Imagens do produto</label>
+        <input type="file" name="photos[]" class="form-control" multiple>
     </div>
     <div class="form-group">
         <label>Slug</label>

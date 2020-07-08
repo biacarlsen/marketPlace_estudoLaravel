@@ -21,4 +21,10 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    // relacionamento: esse produto tem muitas imagens
+    public function photos()
+    {
+        return $this->hasMany(ProductPhoto::class);
+    }
 }

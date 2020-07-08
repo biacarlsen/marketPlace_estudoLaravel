@@ -63,6 +63,13 @@ class ProductController extends Controller
         // a partir do produto criado, fazendo relações com as categorias dentro dele:
         $product->categories()->sync($data['categories']);
 
+        if($request->hasFile('photos')) {
+            $images = $this->imageUpload($request, 'image');
+
+            // inserção destas imgs/referencias na base
+            $product->photos()->createMany($images);
+        }
+
         flash('Produto criado com sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
@@ -108,6 +115,13 @@ class ProductController extends Controller
         // a partir do produto criado, fazendo relações com as categorias dentro dele:
         $product->categories()->sync($data['categories']);
 
+        if($request->hasFile('photos')) {
+            $images = $this->imageUpload($request, 'image');
+
+            // inserção destas imgs/referencias na base
+            $product->photos()->createMany($images);
+        }
+
         flash('Produto atualizado com sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
@@ -125,5 +139,19 @@ class ProductController extends Controller
 
         flash('Produto removido com sucesso!')->success();
         return redirect()->route('admin.products.index');
+    }
+
+    private function imageUpload(Request $request, $imageColumn)
+    {
+        // armazenando as imagens do campo photos da view de add product
+        $images = $request->file('photos');
+
+        $uploadImages = [];
+
+        // usando metodo store para pegar somente o nome da img e a pasta q ela ta - salvando em um novo array;
+        foreach($images as $image) {
+            $uploadImages[] = [$imageColumn => $image->store('products', 'public')];
+        }
+        return $uploadImages;
     }
 }
