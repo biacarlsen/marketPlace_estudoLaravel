@@ -141,6 +141,7 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index');
     }
 
+    // função privada para ser reusada em mais de um lugar/função do controller. 
     private function imageUpload(Request $request, $imageColumn)
     {
         // armazenando as imagens do campo photos da view de add product

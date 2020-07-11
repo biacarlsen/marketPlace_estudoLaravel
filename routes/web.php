@@ -160,6 +160,9 @@ Route::group(['middleware' => ['auth']], function(){
         Route::resource('stores', 'StoreController');
         Route::resource('products', 'ProductController');
         Route::resource('categories', 'CategoryController');
+
+        // Rota para deletar imagem
+        Route::post('photos/remove', 'ProductPhotoController@removePhoto')->name('photo.remove');
     
     });
 });

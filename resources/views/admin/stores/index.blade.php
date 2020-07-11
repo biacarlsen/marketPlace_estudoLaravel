@@ -28,7 +28,7 @@
                 <td>{{$store->name}}</td>
                 <td>{{$store->products->count()}}</td>
                 <td>
-                    <a href="{{route('admin.stores.edit', ['store' => $store->id])}}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
+                    <a href="{{route('admin.stores.edit', ['store' => $store->id])}}" class="btn btn-sm btn-primary mr-3"><i class="far fa-edit"></i></a>
                     <div class="btn-group">
                         <form action="{{route('admin.stores.destroy', ['store' => $store->id])}}" method="post">
                             @csrf

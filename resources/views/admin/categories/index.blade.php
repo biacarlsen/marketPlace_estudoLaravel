@@ -26,7 +26,7 @@
                 <td>{{$category->name}}</td>
                 <td width="15%">
                     <div class="btn-group">
-                        <a href="{{route('admin.categories.edit', ['category' => $category->id])}}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
+                        <a href="{{route('admin.categories.edit', ['category' => $category->id])}}" class="btn btn-sm btn-primary mr-3"><i class="far fa-edit"></i></a>
                         <form action="{{route('admin.categories.destroy', ['category' => $category->id])}}" method="post">
                             @csrf
                             @method("DELETE")
