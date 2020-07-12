@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
-    protected $fillable = ['name', 'description', 'phone', 'mobile_phone', 'slug'];
+    protected $fillable = ['name', 'description', 'phone', 'mobile_phone', 'slug', 'logo'];
 
 
     // se eu quiser chamar um nome de tabela diferente do plural do nome do model,

@@ -6,7 +6,7 @@
         <h1 class="my-4 text-center text-secondary">Cadastre uma nova loja <br> Vamos começar? </h1>
     </div>
 </div>
-<form action="{{route('admin.stores.store')}}" method="post">
+<form action="{{route('admin.stores.store')}}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_token" value="{{csrf_token()}}">
     <div class="form-group">
         <label>Nome da Loja</label>
@@ -51,6 +51,10 @@
             {{$message}}
         </div>
         @enderror
+    </div>
+    <div class="form-group">
+        <label>Imagem da loja</label>
+        <input type="file" name="logo" class="form-control">
     </div>
     <div class="form-group">
         <label>Slug</label>

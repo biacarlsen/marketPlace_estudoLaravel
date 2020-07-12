@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
+use App\Traits\UploadTrait;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
+    use UploadTrait;
 
     // usando middleware para verificar se o usuario tem loja:
     public function __construct()
@@ -40,6 +43,11 @@ class StoreController extends Controller
         $data = $request->all();
         // pegando usuario logado:
         $user = auth()->user();
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $this->imageUpload($request->file('logo'));
+        }
+
         // criando a loja e associando à um usuario - 1:1
         $store = $user->store()->create($data);
 
@@ -65,6 +73,14 @@ class StoreController extends Controller
         // dd($request->all()); -->debug or test
         $data = $request->all(); //-->salvando o retorno na variavel data
         $store = \App\Store::find($store); //-->buscando a loja e salvando na variável store
+
+        if ($request->hasFile('logo')) {
+            if(Storage::disk('public')->exists($store->logo)){
+                Storage::disk('public')->delete($store->logo);
+            }
+            $data['logo'] = $this->imageUpload($request->file('logo'));
+        }
+
         $store->update($data); //--> atualizando a loja com os dados vindos da variavel data
 
         // Obs: update retorna um boleano

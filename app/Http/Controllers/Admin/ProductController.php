@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Http\Requests\ProductRequest;
+use App\Traits\UploadTrait;
 
 use function GuzzleHttp\Promise\all;
 
 class ProductController extends Controller
 {
+    use UploadTrait;
+
     // essa função foi criada pra nao precisarmos ficar chamando o model em todas as funções (por isso o model tbm foi importado acima)
     private $product;
 
@@ -64,7 +67,7 @@ class ProductController extends Controller
         $product->categories()->sync($data['categories']);
 
         if($request->hasFile('photos')) {
-            $images = $this->imageUpload($request, 'image');
+            $images = $this->imageUpload($request->file('photos'), 'image');
 
             // inserção destas imgs/referencias na base
             $product->photos()->createMany($images);
@@ -116,7 +119,7 @@ class ProductController extends Controller
         $product->categories()->sync($data['categories']);
 
         if($request->hasFile('photos')) {
-            $images = $this->imageUpload($request, 'image');
+            $images = $this->imageUpload($request->file('photos'), 'image');
 
             // inserção destas imgs/referencias na base
             $product->photos()->createMany($images);
@@ -141,18 +144,4 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index');
     }
 
-    // função privada para ser reusada em mais de um lugar/função do controller. 
-    private function imageUpload(Request $request, $imageColumn)
-    {
-        // armazenando as imagens do campo photos da view de add product
-        $images = $request->file('photos');
-
-        $uploadImages = [];
-
-        // usando metodo store para pegar somente o nome da img e a pasta q ela ta - salvando em um novo array;
-        foreach($images as $image) {
-            $uploadImages[] = [$imageColumn => $image->store('products', 'public')];
-        }
-        return $uploadImages;
-    }
 }
