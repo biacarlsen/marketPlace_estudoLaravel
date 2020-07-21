@@ -61,10 +61,6 @@
             </div>
         @enderror
     </div>
-    <div class="form-group">
-        <label>Slug</label>
-        <input type="text" name="slug" class="form-control">
-    </div>
     {{-- Não está sendo mais usado o select user pois o cadastro é vinculado ao user logado --}}
     {{-- <div class="form-group">
         <label>Usuário</label>

@@ -71,10 +71,6 @@
             </div>
         @enderror
     </div>
-    <div class="form-group">
-        <label>Slug</label>
-        <input type="text" name="slug" class="form-control">
-    </div>
     <div>
         <button type="submit"  class="btn btn-primary my-3 px-3">
             Cadastrar Produto

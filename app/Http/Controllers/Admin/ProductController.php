@@ -64,12 +64,15 @@ class ProductController extends Controller
     {
         // recebendo os dados da requisição:
         $data = $request->all();
+        // definindo valor padrão pras categorias
+        $categories = $request->get('categories', null);
+
         // pegando a loja do usuario logado pra fazer o relacionamento:
         $store = auth()->user()->store;
         // guardando o objeto criado na variavel produto:
         $product = $store->products()->create($data);
         // a partir do produto criado, fazendo relações com as categorias dentro dele:
-        $product->categories()->sync($data['categories']);
+        $product->categories()->sync($categories);
 
         if ($request->hasFile('photos')) {
             $images = $this->imageUpload($request->file('photos'), 'image');
@@ -117,12 +120,16 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $product)
     {
         $data = $request->all();
+        // definindo valor padrão pras categorias
+        $categories = $request->get('categories', null);
 
         $product = $this->product->find($product);
         $product->update($data);
         // a partir do produto criado, fazendo relações com as categorias dentro dele:
-        $product->categories()->sync($data['categories']);
+        if(!is_null($categories)) 
+            $product->categories()->sync($categories);
 
+    
         if ($request->hasFile('photos')) {
             $images = $this->imageUpload($request->file('photos'), 'image');
 
