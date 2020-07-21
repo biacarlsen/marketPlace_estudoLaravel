@@ -19,7 +19,7 @@ class ProductController extends Controller
 
     public function __construct(Product $product)
     {
-        $this->product = $product;   
+        $this->product = $product;
     }
 
     /**
@@ -31,8 +31,13 @@ class ProductController extends Controller
     {
         // pegando loja do usuario logado:
         $userStore = auth()->user()->store;
+        
         // pegando produtos dessa loja e paginando:
-        $products = $userStore->products()->paginate(10);
+        $products = $userStore;
+
+        if (!is_null($products)) {
+            $products = $userStore->products()->paginate(10);
+        }
 
         return view('admin.products.index', compact('products'));
     }
@@ -56,7 +61,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request)
-    {   
+    {
         // recebendo os dados da requisição:
         $data = $request->all();
         // pegando a loja do usuario logado pra fazer o relacionamento:
@@ -66,7 +71,7 @@ class ProductController extends Controller
         // a partir do produto criado, fazendo relações com as categorias dentro dele:
         $product->categories()->sync($data['categories']);
 
-        if($request->hasFile('photos')) {
+        if ($request->hasFile('photos')) {
             $images = $this->imageUpload($request->file('photos'), 'image');
 
             // inserção destas imgs/referencias na base
@@ -118,7 +123,7 @@ class ProductController extends Controller
         // a partir do produto criado, fazendo relações com as categorias dentro dele:
         $product->categories()->sync($data['categories']);
 
-        if($request->hasFile('photos')) {
+        if ($request->hasFile('photos')) {
             $images = $this->imageUpload($request->file('photos'), 'image');
 
             // inserção destas imgs/referencias na base
@@ -143,5 +148,4 @@ class ProductController extends Controller
         flash('Produto removido com sucesso!')->success();
         return redirect()->route('admin.products.index');
     }
-
 }
